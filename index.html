@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="HDR-Plenoxels: Self-Calibrating High Dynamic Range Radiance Fields">
+  <meta name="keywords" content="Mesh reconstruction of Humans and Animals">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HDR-Plenoxels: Self-Calibrating High Dynamic Range Radiance Fields</title>
+
+  <!-- fontawesome for icons -->
+  <script src="https://kit.fontawesome.com/b6f2d55583.js" crossorigin="anonymous"></script>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+<!--  <link rel="icon" href="./static/images/favicon.svg">-->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <!-- <a class="navbar-item" href="https://youwang.notion.site">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span> -->
+      </a>
+
+<!--      <div class="navbar-item has-dropdown is-hoverable">-->
+<!--        <a class="navbar-link">-->
+<!--          More Research-->
+<!--        </a>-->
+<!--        <div class="navbar-dropdown">-->
+<!--          <a class="navbar-item" href="https://hypernerf.github.io">-->
+<!--            HyperNeRF-->
+<!--          </a>-->
+<!--          <a class="navbar-item" href="https://nerfies.github.io">-->
+<!--            Nerfies-->
+<!--          </a>-->
+<!--          <a class="navbar-item" href="https://latentfusion.github.io">-->
+<!--            LatentFusion-->
+<!--          </a>-->
+<!--          <a class="navbar-item" href="https://photoshape.github.io">-->
+<!--            PhotoShape-->
+<!--          </a>-->
+<!--        </div>-->
+<!--      </div>-->
+    </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">HDR-Plenoxels: Self-Calibrating <br> High Dynamic Range Radiance Fields</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://kim-junseong.github.io/">Kim Jun-Seong</a><sup>*</sup>,</span>
+            <span class="author-block">
+              <a href="https://ug-kim.github.io">Kim Yu-Ji</a><sup>*</sup>,</span>
+            <span class="author-block">
+              <a href="https://sites.google.com/g.postech.edu/moon-ye-bin/%ED%99%88">Moon Ye-Bin</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://ami.postech.ac.kr/members/tae-hyun-oh">Tae-Hyun Oh</a>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">POSTECH</span>
+            <!-- <span class="author-block"><sup>2</sup>UNIST</span> -->
+          </div>
+          <div class="column has-text-centered">
+            <span class="author-block">European Conference on Computer Vision (ECCV) 2022</span>
+          </div>
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <!-- <span class="link-block">
+                <a href="https://www.bmvc2021-virtualconference.com/assets/papers/0926.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span> -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2208.06787"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/postech-ami/HDR-Plenoxels"
+                    class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fa-brands fa-github"></i>
+                  </span>
+                  <span>GitHub</span>
+                </a>
+              </span>
+
+              <!-- Data Link. -->
+              <span class="link-block">
+                <a href="https://postechackr-my.sharepoint.com/:f:/g/personal/gucka28_postech_ac_kr/EiM6SNSIJhRPl908z3zGTRoBKTBLMVA-flpTwnXDs70KgQ?e=4K2Tq9"
+                    class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fa-solid fa-download"></i>
+                  </span>
+                  <span>Dataset</span>
+                </a>
+              </span>
+
+              <!-- POSTER Link. -->
+              <span class="link-block">
+                <a href="https://drive.google.com/file/d/1ufuaBS0TYx_pMyb2oeU8YiZKJYr-DklQ/view?usp=sharing"
+                    class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fa-solid fa-image"></i>
+                  </span>
+                  <span>Poster</span>
+                </a>
+              </span>
+
+              <!-- Video Link. -->
+              <!-- <span class="link-block">
+                <a href="https://www.bmvc2021-virtualconference.com/conference/papers/paper_0926.html"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span> -->
+<!--              &lt;!&ndash; Code Link. &ndash;&gt;-->
+<!--              <span class="link-block">-->
+<!--                <a href="https://github.com/google/nerfies"-->
+<!--                   class="external-link button is-normal is-rounded is-dark">-->
+<!--                  <span class="icon">-->
+<!--                      <i class="fab fa-github"></i>-->
+<!--                  </span>-->
+<!--                  <span>Code</span>-->
+<!--                  </a>-->
+<!--              </span>-->
+<!--              &lt;!&ndash; Dataset Link. &ndash;&gt;-->
+<!--              <span class="link-block">-->
+<!--                <a href="https://github.com/google/nerfies/releases/tag/0.1"-->
+<!--                   class="external-link button is-normal is-rounded is-dark">-->
+<!--                  <span class="icon">-->
+<!--                      <i class="far fa-images"></i>-->
+<!--                  </span>-->
+<!--                  <span>Data</span>-->
+<!--                  </a>-->
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+<!--      <video id="teaser" autoplay muted loop height="100%">-->
+<!--        <source src="https://homes.cs.washington.edu/~kpar/nerfies/videos/teaser.mp4"-->
+<!--                type="video/mp4">-->
+<!--      </video>-->
+      <img src="images/pipeline.png">
+      <h2 class="subtitle has-text-centered">
+        1) Plenoxels synthesize an HDR image
+        from HDR radiance by ray-marching, then 2) the differentiable tone-mapping function
+        maps from HDR to LDR in an end-to-end manner.
+      </h2>
+<!--      <video src= "./video/DeMR_Demo.mov"></video>-->
+    </div>
+  </div>
+</section>
+
+<br>
+<br>
+    
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="images/qual_in_ours.png">
+      <h2 class="subtitle has-text-centered">
+        The static and varying mean camera conditions include exposure, white balance, and CRF. 
+        The static camera condition is a controlled environmental setting, i.e., all views of the scene 
+        have the same components of exposure, white balance, and CRF. The varying camera 
+        condition is alternated environmental settings, i.e., all views of the scene 
+        have different components.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<!--<section class="hero is-light is-small">-->
+<!--  <div class="hero-body">-->
+<!--    <div class="container">-->
+<!--      <div id="results-carousel" class="carousel results-carousel">-->
+<!--        <div class="item item-steve">-->
+<!--          <video poster="" id="steve" autoplay controls muted loop height="100%">-->
+<!--            <source src="https://homes.cs.washington.edu/~kpar/nerfies/videos/steve.mp4"-->
+<!--                    type="video/mp4">-->
+<!--          </video>-->
+<!--        </div>-->
+<!--        <div class="item item-chair-tp">-->
+<!--          <video poster="" id="chair-tp" autoplay controls muted loop height="100%">-->
+<!--            <source src="https://homes.cs.washington.edu/~kpar/nerfies/videos/chair-tp.mp4"-->
+<!--                    type="video/mp4">-->
+<!--          </video>-->
+<!--        </div>-->
+<!--        <div class="item item-shiba">-->
+<!--          <video poster="" id="shiba" autoplay controls muted loop height="100%">-->
+<!--            <source src="https://homes.cs.washington.edu/~kpar/nerfies/videos/shiba.mp4"-->
+<!--                    type="video/mp4">-->
+<!--          </video>-->
+<!--        </div>-->
+<!--        <div class="item item-fullbody">-->
+<!--          <video poster="" id="fullbody" autoplay controls muted loop height="100%">-->
+<!--            <source src="https://homes.cs.washington.edu/~kpar/nerfies/videos/fullbody.mp4"-->
+<!--                    type="video/mp4">-->
+<!--          </video>-->
+<!--        </div>-->
+<!--        <div class="item item-blueshirt">-->
+<!--          <video poster="" id="blueshirt" autoplay controls muted loop height="100%">-->
+<!--            <source src="https://homes.cs.washington.edu/~kpar/nerfies/videos/blueshirt.mp4"-->
+<!--                    type="video/mp4">-->
+<!--          </video>-->
+<!--        </div>-->
+<!--        <div class="item item-mask">-->
+<!--          <video poster="" id="mask" autoplay controls muted loop height="100%">-->
+<!--            <source src="https://homes.cs.washington.edu/~kpar/nerfies/videos/mask.mp4"-->
+<!--                    type="video/mp4">-->
+<!--          </video>-->
+<!--        </div>-->
+<!--        <div class="item item-coffee">-->
+<!--          <video poster="" id="coffee" autoplay controls muted loop height="100%">-->
+<!--            <source src="https://homes.cs.washington.edu/~kpar/nerfies/videos/coffee.mp4"-->
+<!--                    type="video/mp4">-->
+<!--          </video>-->
+<!--        </div>-->
+<!--        <div class="item item-toby">-->
+<!--          <video poster="" id="toby" autoplay controls muted loop height="100%">-->
+<!--            <source src="https://homes.cs.washington.edu/~kpar/nerfies/videos/toby2.mp4"-->
+<!--                    type="video/mp4">-->
+<!--          </video>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</section>-->
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            We propose high dynamic range (HDR) radiance fields, HDR-Plenoxels, 
+            that learn a plenoptic function of 3D HDR radiance fields, geometry information, 
+            and varying camera settings inherent in 2D low dynamic range (LDR) images.
+          </p>
+          <p>
+            Our voxel-based volume rendering pipeline reconstructs HDR radiance fields 
+            with only multi-view LDR images taken from varying camera settings 
+            in an end-to-end manner and has a fast convergence speed. 
+            To deal with various cameras in real-world scenarios, 
+            we introduce a tone mapping module that models the digital 
+            in-camera imaging pipeline (ISP) and disentangles radiometric settings. 
+            Our tone mapping module allows us to render by controlling the radiometric settings 
+            of each novel view.
+          <p>
+            Finally, we build a multi-view dataset with varying camera conditions, 
+            which fits our problem setting. Our experiments show that HDR-Plenoxels 
+            can express detail and high-quality HDR novel views from only LDR images 
+            with various cameras.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+<!--<iframe src="https://www.youtube.com/embed/EbJYOJ-O10Y?rel=0&amp;showinfo=0&autoplay=1&mute=1&amp;loop=1" width="912" height="320" frameborder="0"></iframe>-->
+    <!-- Paper video. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe width="791" height="445" src="https://www.youtube.com/embed/HA6EERLmgiw" title="HDR-Plenoxels: Self-CalibratingHigh Dynamic Range Radiance Fields, ECCV 2022" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<!--          <embed src="https://slideslive.com/embed/presentation/38970215?embed_parent_url=https%3A%2F%2Fwww.bmvc2021-virtualconference.com%2Fconference%2Fpapers%2Fpaper_0926.html&embed_container_origin=https%3A%2F%2Fwww.bmvc2021-virtualconference.com&embed_container_id=presentation-embed-38970215&auto_load=true&auto_play=false&zoom_ratio=&disable_fullscreen=false&locale=ko&vertical_enabled=true&vertical_enabled_on_mobile=false&allow_hidden_controls_when_paused=false&fit_to_viewport=true&user_uuid=cfb87119-bfae-4b2b-b7dc-e094aeafb408" style="width:100%;height:500px">-->
+<!--          <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"-->
+<!--                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>-->
+          <!-- <iframe src="https://slideslive.com/embed/presentation/38970215?embed_parent_url=https%3A%2F%2Fwww.bmvc2021-virtualconference.com%2Fconference%2Fpapers%2Fpaper_0926.html&amp;embed_container_origin=https%3A%2F%2Fwww.bmvc2021-virtualconference.com&amp;embed_container_id=presentation-embed-38970215&amp;auto_load=true&amp;auto_play=false&amp;zoom_ratio=&amp;disable_fullscreen=false&amp;locale=ko&amp;vertical_enabled=true&amp;vertical_enabled_on_mobile=false&amp;allow_hidden_controls_when_paused=false&amp;fit_to_viewport=true&amp;user_uuid=cfb87119-bfae-4b2b-b7dc-e094aeafb408" height="640" scrolling="no" frameborder="0" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-top-navigation" allow="autoplay; fullscreen" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen="" style="margin: 0px auto; display: block; width: 100%;"></iframe> -->
+        </div>
+      </div>
+    </div>
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+
+<!--<section class="section">-->
+<!--  <div class="container is-max-desktop">-->
+
+<!--    <div class="columns is-centered">-->
+
+<!--      &lt;!&ndash; Visual Effects. &ndash;&gt;-->
+<!--      <div class="column">-->
+<!--        <div class="content">-->
+<!--          <h2 class="title is-3">Visual Effects</h2>-->
+<!--          <p>-->
+<!--            Using <i>nerfies</i> you can create fun visual effects. This Dolly zoom effect-->
+<!--            would be impossible without nerfies since it would require going through a wall.-->
+<!--          </p>-->
+<!--          <video id="dollyzoom" autoplay controls muted loop height="100%">-->
+<!--            <source src="https://homes.cs.washington.edu/~kpar/nerfies/videos/dollyzoom-stacked.mp4"-->
+<!--                    type="video/mp4">-->
+<!--          </video>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      &lt;!&ndash;/ Visual Effects. &ndash;&gt;-->
+
+<!--      &lt;!&ndash; Matting. &ndash;&gt;-->
+<!--      <div class="column">-->
+<!--        <h2 class="title is-3">Matting</h2>-->
+<!--        <div class="columns is-centered">-->
+<!--          <div class="column content">-->
+<!--            <p>-->
+<!--              As a byproduct of our method, we can also solve the matting problem by ignoring-->
+<!--              samples that fall outside of a bounding box during rendering.-->
+<!--            </p>-->
+<!--            <video id="matting-video" controls height="100%">-->
+<!--              <source src="https://homes.cs.washington.edu/~kpar/nerfies/videos/matting.mp4"-->
+<!--                      type="video/mp4">-->
+<!--            </video>-->
+<!--          </div>-->
+
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    &lt;!&ndash;/ Matting. &ndash;&gt;-->
+
+<!--    &lt;!&ndash; Animation. &ndash;&gt;-->
+<!--    <div class="columns is-centered">-->
+<!--      <div class="column is-full-width">-->
+<!--        <h2 class="title is-3">Animation</h2>-->
+
+<!--        &lt;!&ndash; Interpolating. &ndash;&gt;-->
+<!--        <h3 class="title is-4">Interpolating states</h3>-->
+<!--        <div class="content has-text-justified">-->
+<!--          <p>-->
+<!--            We can also animate the scene by interpolating the deformation latent codes of two input-->
+<!--            frames. Use the slider here to linearly interpolate between the left frame and the right-->
+<!--            frame.-->
+<!--          </p>-->
+<!--        </div>-->
+<!--        <div class="columns is-vcentered interpolation-panel">-->
+<!--          <div class="column is-3 has-text-centered">-->
+<!--            <img src="https://homes.cs.washington.edu/~kpar/nerfies/images/interpolate_start.jpg"-->
+<!--                 class="interpolation-image"-->
+<!--                 alt="Interpolate start reference image."/>-->
+<!--            <p>Start Frame</p>-->
+<!--          </div>-->
+<!--          <div class="column interpolation-video-column">-->
+<!--            <div id="interpolation-image-wrapper">-->
+<!--              Loading...-->
+<!--            </div>-->
+<!--            <input class="slider is-fullwidth is-large is-info"-->
+<!--                   id="interpolation-slider"-->
+<!--                   step="1" min="0" max="100" value="0" type="range">-->
+<!--          </div>-->
+<!--          <div class="column is-3 has-text-centered">-->
+<!--            <img src="https://homes.cs.washington.edu/~kpar/nerfies/images/interpolate_end.jpg"-->
+<!--                 class="interpolation-image"-->
+<!--                 alt="Interpolation end reference image."/>-->
+<!--            <p class="is-bold">End Frame</p>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <br/>-->
+<!--        &lt;!&ndash;/ Interpolating. &ndash;&gt;-->
+
+<!--        &lt;!&ndash; Re-rendering. &ndash;&gt;-->
+<!--        <h3 class="title is-4">Re-rendering the input video</h3>-->
+<!--        <div class="content has-text-justified">-->
+<!--          <p>-->
+<!--            Using <span class="dnerf">Nerfies</span>, you can re-render a video from a novel-->
+<!--            viewpoint such as a stabilized camera by playing back the training deformations.-->
+<!--          </p>-->
+<!--        </div>-->
+<!--        <div class="content has-text-centered">-->
+<!--          <video id="replay-video"-->
+<!--                 controls-->
+<!--                 muted-->
+<!--                 preload-->
+<!--                 width="75%">-->
+<!--            <source src="https://homes.cs.washington.edu/~kpar/nerfies/videos/replay.mp4"-->
+<!--                    type="video/mp4">-->
+<!--          </video>-->
+<!--        </div>-->
+<!--        &lt;!&ndash;/ Re-rendering. &ndash;&gt;-->
+
+<!--      </div>-->
+<!--    </div>-->
+<!--    &lt;!&ndash;/ Animation. &ndash;&gt;-->
+
+
+<!--    &lt;!&ndash; Concurrent Work. &ndash;&gt;-->
+<!--    <div class="columns is-centered">-->
+<!--      <div class="column is-full-width">-->
+<!--        <h2 class="title is-3">Related Links</h2>-->
+
+<!--        <div class="content has-text-justified">-->
+<!--          <p>-->
+<!--            There's a lot of excellent work that was introduced around the same time as ours.-->
+<!--          </p>-->
+<!--          <p>-->
+<!--            <a href="https://arxiv.org/abs/2104.09125">Progressive Encoding for Neural Optimization</a> introduces an idea similar to our windowed position encoding for coarse-to-fine optimization.-->
+<!--          </p>-->
+<!--          <p>-->
+<!--            <a href="https://www.albertpumarola.com/research/D-NeRF/index.html">D-NeRF</a> and <a href="https://gvv.mpi-inf.mpg.de/projects/nonrigid_nerf/">NR-NeRF</a>-->
+<!--            both use deformation fields to model non-rigid scenes.-->
+<!--          </p>-->
+<!--          <p>-->
+<!--            Some works model videos with a NeRF by directly modulating the density, such as <a href="https://video-nerf.github.io/">Video-NeRF</a>, <a href="https://www.cs.cornell.edu/~zl548/NSFF/">NSFF</a>, and <a href="https://neural-3d-video.github.io/">DyNeRF</a>-->
+<!--          </p>-->
+<!--          <p>-->
+<!--            There are probably many more by the time you are reading this. Check out <a href="https://dellaert.github.io/NeRF/">Frank Dellart's survey on recent NeRF papers</a>, and <a href="https://github.com/yenchenlin/awesome-NeRF">Yen-Chen Lin's curated list of NeRF papers</a>.-->
+<!--          </p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    &lt;!&ndash;/ Concurrent Work. &ndash;&gt;-->
+
+<!--  </div>-->
+<!--</section>-->
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>
+    @inproceedings{jun2022hdr,
+        title = {HDR-Plenoxels: Self-Calibrating High Dynamic Range Radiance Fields},
+        author = {Jun-Seong, Kim and Yu-Ji, Kim and Ye-Bin, Moon and Oh, Tae-Hyun},
+        booktitle = {ECCV},
+        year = {2022},
+    }
+    </code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="https://arxiv.org/abs/2208.06787">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+<!--      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>-->
+<!--        <i class="fab fa-github"></i>-->
+<!--      </a>-->
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <h2 class="title is-3">Acknowledgement</h2>
+          <p>
+            This work was partly supported by the National Research Foundation of Korea
+            (NRF) grant funded by the Korea government (MSIT) (No. NRF-2021R1C1C1006799), Institute of
+            Information & communications Technology Planning & Evaluation (IITP) grant funded by the Korea
+            government(MSIT) (No.2022-0-00290, Visual Intelligence for Space-Time Understanding and Generation based on Multi-layered Visual Common Sense; and No.2019-0-01906, Artificial Intelligence
+            Graduate School Program(POSTECH)).
+          </p>
+
+          <p>
+            This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+            This means you are free to borrow the <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
+            we just ask that you link back to the <a href="https://github.com/nerfies/nerfies.github.io">original page</a> in the footer.
+            Please remember to remove the analytics code included in the header of the website which
+            you do not want on your website.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
